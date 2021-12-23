@@ -18,9 +18,7 @@ import java.util.List;
  */
 @Data
 public class ProductSet {
-    private Product product1;
-    private Product product2;
-    private Product product3;
+    private List<Product> products = new ArrayList<>();
 
     private ProductSet() {
     }
@@ -55,16 +53,14 @@ public class ProductSet {
 
 
     private static ProductSet build(List<Member> joinedMember) throws InterruptedException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
         ProductSet set = new ProductSet();
-        String id = sdf.format(new Date());
-        set.setProduct1(Product.build(id, "", joinedMember));
-        Thread.sleep(1);
-        id = sdf.format(new Date());
-        set.setProduct2(Product.build(id, "", joinedMember));
-        Thread.sleep(1);
-        id = sdf.format(new Date());
-        set.setProduct3(Product.build(id, "", joinedMember));
+        String id = "";
+        for (int i = 0; i < Constant.PRODUCTS_IN_PRODUCT_SET; i++) {
+            id = sdf.format(new Date());
+            set.getProducts().add(Product.build(id, "", joinedMember));
+            Thread.sleep(1000);
+        }
         return set;
     }
 

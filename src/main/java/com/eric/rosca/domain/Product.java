@@ -3,7 +3,6 @@ package com.eric.rosca.domain;
 import com.eric.rosca.common.Constant;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,19 +20,25 @@ public class Product {
 
     private String name;
 
-    private BigDecimal profitPool = BigDecimal.ZERO;
+    private int round = Constant.ASSOCIATIONS_IN_PRODUCT;
 
-    private Map<Integer, Association> associationMap = new HashMap<>();
+    private int profitPool = 0;
 
+    private List<Association> associationList = new ArrayList<>();
+
+    private Product(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public static Product build(String id, String name, List<Member> members) {
         Product product = new Product(id, name);
-        product.setAssociationMap(buildAssociationMap(members));
+        product.setAssociationList(buildAssociationList(members));
         return product;
     }
 
-    private static Map<Integer, Association> buildAssociationMap(List<Member> members) {
-        Map<Integer, Association> associationMap = new HashMap<>();
+    private static List<Association> buildAssociationList(List<Member> members) {
+        List<Association> associationList = new ArrayList<>();
         int count = 1;
         if (members.size() != Constant.JOIN_LIMIT) {
             //暫時限定只固定五人參加
@@ -41,16 +46,27 @@ public class Product {
         }
         for (Member member : members) {
             for (int i = 0; i < Constant.JOIN_LIMIT; i++) {
-                Association association = new Association(member);
-                associationMap.put(count++, association);
+                Association association = new Association(i, member);
+                associationList.add(association);
             }
         }
-        return associationMap;
+        return associationList;
     }
 
-    private Product(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public void payForEachRound() {
+
+        for (Association association : associationList) {
+            int charge = association.payCharge();
+            profitPool += charge;
+        }
     }
 
+    public Association getThisRoundWinner() {
+        int winnerIndex = (int) (Math.random() * round+1);
+        return associationList.remove(winnerIndex);
+    }
+
+    public void endThisRound(){
+        round--;
+    }
 }

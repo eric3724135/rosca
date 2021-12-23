@@ -18,4 +18,13 @@ public class Constant {
      * 每個產品 會員餐與會期數
      */
     public static final int JOIN_LIMIT = 5;
+    /**
+     * 每組由n項產品組成
+     */
+    public static final int PRODUCTS_IN_PRODUCT_SET = 3;
+
+    /**
+     * 產品由n個會組成
+     */
+    public static final int ASSOCIATIONS_IN_PRODUCT = 25;
 }

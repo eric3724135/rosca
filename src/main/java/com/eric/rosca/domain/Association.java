@@ -11,9 +11,10 @@ import java.util.List;
  */
 @Data
 public class Association {
-
-
-
+    /**
+     * 產品中序號
+     */
+    private int productIndex;
     /**
      * 投入會員
      */
@@ -28,8 +29,14 @@ public class Association {
      */
     private int managementFee = Constant.MANAGEMENT_FEE;
 
-    public Association(Member member) {
+    public Association(int productIndex, Member member) {
+        this.productIndex = productIndex;
         this.member = member;
+    }
+
+    public int payCharge() {
+        member.setFunds(member.getFunds() - charge);
+        return charge;
     }
 
 
