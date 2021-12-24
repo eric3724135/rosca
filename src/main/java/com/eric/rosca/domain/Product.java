@@ -15,6 +15,7 @@ import java.util.Map;
 @Data
 public class Product {
 
+    private ProductSet parentProductSet;
 
     private String id;
 
@@ -22,7 +23,8 @@ public class Product {
 
     private int round = Constant.ASSOCIATIONS_IN_PRODUCT;
 
-    private int profitPool = 0;
+//    @Deprecated
+//    private int profitPool = 0;
 
     private List<Association> associationList = new ArrayList<>();
 
@@ -57,7 +59,7 @@ public class Product {
 
         for (Association association : associationList) {
             int charge = association.payCharge();
-            profitPool += charge;
+//            profitPool += charge;
         }
     }
 

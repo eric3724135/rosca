@@ -18,6 +18,8 @@ import java.util.List;
  */
 @Data
 public class ProductSet {
+
+    private String id;
     private List<Product> products = new ArrayList<>();
 
     private ProductSet() {
@@ -61,7 +63,23 @@ public class ProductSet {
             set.getProducts().add(Product.build(id, "", joinedMember));
             Thread.sleep(1000);
         }
+
+        id = sdf.format(new Date());
+        set.setId(id);
+        joinedMember.stream().forEach(member -> member.getUnFullWithdrawalSets().put(set.getId(), set));
         return set;
+    }
+
+    public int getQuotaByMember(Member member) {
+        int count = 0;
+        for (Product product : products) {
+            for (Association association : product.getAssociationList()) {
+                if (association.getMember().getId() == member.getId()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 }

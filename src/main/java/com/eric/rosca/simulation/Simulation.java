@@ -44,6 +44,7 @@ public class Simulation {
                         //TODO 抽出產品中獎者
                         Association winnerAssociation = product.getThisRoundWinner();
                         //TODO 選擇領取方式
+                        winnerAssociation.processWithdrawal(productSet);
 
                     }
                     //產品結束此回合
