@@ -26,7 +26,15 @@ public class Product {
 //    @Deprecated
 //    private int profitPool = 0;
 
+    /**
+     * 產品中的活會列表
+     */
     private List<Association> associationList = new ArrayList<>();
+
+    /**
+     * 產品中轉為全額支付的會
+     */
+    private List<Association> fullWithdrawalAssociationList = new ArrayList<>();
 
     private Product(String id, String name) {
         this.id = id;
@@ -61,14 +69,17 @@ public class Product {
             int charge = association.payCharge();
 //            profitPool += charge;
         }
+        for (Association association : fullWithdrawalAssociationList) {
+            int charget = association.payFullWithdrawalCharge();
+        }
     }
 
     public Association getThisRoundWinner() {
-        int winnerIndex = (int) (Math.random() * round+1);
+        int winnerIndex = (int) (Math.random() * round + 1);
         return associationList.remove(winnerIndex);
     }
 
-    public void endThisRound(){
+    public void endThisRound() {
         round--;
     }
 }

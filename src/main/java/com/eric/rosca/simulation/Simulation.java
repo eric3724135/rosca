@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class Simulation {
 
-    private int memberNum = 25;
+    private int memberNum = 5;
     private List<ProductSet> productSets = new ArrayList<>();
     private List<Product> closedProducts = new ArrayList<>();
 
@@ -38,15 +38,19 @@ public class Simulation {
             for (ProductSet productSet : productSets) {
                 for (Iterator<Product> iter = productSet.getProducts().iterator(); iter.hasNext(); ) {
                     Product product = iter.next();
-                    //每期收費
-                    product.payForEachRound();
+
                     if (product.getRound() < Constant.ASSOCIATIONS_IN_PRODUCT) {
                         //TODO 抽出產品中獎者
                         Association winnerAssociation = product.getThisRoundWinner();
                         //TODO 選擇領取方式
                         winnerAssociation.processWithdrawal(productSet);
-
+                        if(winnerAssociation.isFullWithdrawal()){
+                            //此會全額領取 後續須持續繳付費用
+                            product.getFullWithdrawalAssociationList().add(winnerAssociation);
+                        }
                     }
+                    //每期收費
+                    product.payForEachRound();
                     //產品結束此回合
                     product.endThisRound();
                     //TODO 檢查產品是否結束 並結算

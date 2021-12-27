@@ -11,6 +11,10 @@ public class Constant {
      */
     public static final int MANAGEMENT_FEE = 200;
     /**
+     * 每個產品欲付總管理費用
+     */
+    public static final int PRE_PAID_MANAGEMENT_FEE = 5000;
+    /**
      * 每個會期獲利金額
      */
     public static final int PROFIT = 1000;

@@ -1,5 +1,6 @@
 package com.eric.rosca.domain;
 
+import com.eric.rosca.common.WithdrawalMode;
 import lombok.Data;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class Member {
 
     private String name;
 
+    private WithdrawalMode withdrawalMode = WithdrawalMode.FULL_Withdrawal_IN_MIDDLE;
     /**
      * 預設資金 600w
      */
@@ -37,7 +39,7 @@ public class Member {
      */
     private Map<String, ProductSet> fullWithdrawalSets = new HashMap<>();
 
-    public void fullWithdrawal(ProductSet set) {
+    public void setFullWithdrawal(ProductSet set) {
         ProductSet fullWithdrawalSet = unFullWithdrawalSets.get(set.getId());
         fullWithdrawalSets.put(fullWithdrawalSet.getId(), fullWithdrawalSet);
     }
