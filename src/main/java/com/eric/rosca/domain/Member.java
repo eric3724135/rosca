@@ -19,7 +19,7 @@ public class Member {
 
     private String name;
 
-    private WithdrawalMode withdrawalMode = WithdrawalMode.FULL_Withdrawal_IN_MIDDLE;
+    private WithdrawalMode withdrawalMode = WithdrawalMode.FULL_Withdrawal_AT_FIRST;
     /**
      * 預設資金 600w
      */

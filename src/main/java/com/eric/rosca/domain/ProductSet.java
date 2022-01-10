@@ -27,7 +27,7 @@ public class ProductSet {
 
     public static List<ProductSet> initProductSet(List<Member> members) throws InterruptedException {
         List<ProductSet> resultSet = new ArrayList<>();
-        if (members == null || members.size() <= Constant.JOIN_LIMIT) {
+        if (members == null || members.size() < Constant.JOIN_LIMIT) {
             throw new IllegalArgumentException("會員人數須大於5人");
         }
         int sets = members.size() / Constant.JOIN_LIMIT;

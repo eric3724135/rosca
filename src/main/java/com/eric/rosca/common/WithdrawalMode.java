@@ -2,6 +2,9 @@ package com.eric.rosca.common;
 
 public enum WithdrawalMode {
 
+    //第一會就全額領取 馬上取得資金繼續滾利
+    FULL_Withdrawal_AT_FIRST("第一會就全額領取", 1),
+
     //中間全額領取 雖然會有先許虧錢 但資金效率應用較好
     FULL_Withdrawal_IN_MIDDLE("中期全額領取", 13),
 
